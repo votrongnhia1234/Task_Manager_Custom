@@ -9,8 +9,8 @@ import {
 import { openAlert } from '../Redux/Slices/alertSlice';
 import { addMembers, setActivityLoading, updateActivity, updateBackground, updateDescription } from '../Redux/Slices/boardSlice';
 
-const listRoute = 'http://localhost:3001/list';
-const boardRoute = 'http://localhost:3001/board';
+const listRoute = process.env.REACT_APP_API_URL + '/list';
+const boardRoute = process.env.REACT_APP_API_URL + '/board';
 
 export const getLists = async (boardId, dispatch) => {
 	dispatch(setLoading(true));
