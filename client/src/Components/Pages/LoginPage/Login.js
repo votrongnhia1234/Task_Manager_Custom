@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { login } from "../../../Services/userService";
+import { login, googleLogin } from "../../../Services/userService";
+import { GoogleLogin } from "@react-oauth/google";
 import Background from "../../Background";
 import Logo from "../../../Images/logo.svg";
 import {
@@ -34,6 +35,13 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     login(userInformations, dispatch);
+  };
+  const handleGoogleSuccess = (credentialResponse) => {
+    googleLogin(credentialResponse.credential, dispatch);
+  };
+  const handleGoogleError = () => {
+    alert('Google login failed. Please try again.');
+    console.error('Google Login Error');
   };
   return (
     <>
@@ -73,6 +81,12 @@ const Login = () => {
                 }
               />
               <Button>Log in</Button>
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={handleGoogleError}
+                />
+              </div>
               <Hr />
               <Link
                 fontSize="0.85rem"

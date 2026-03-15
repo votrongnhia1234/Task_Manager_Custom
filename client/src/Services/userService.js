@@ -86,6 +86,35 @@ export const login = async ({ email, password }, dispatch) => {
   }
 };
 
+export const googleLogin = async (token, dispatch) => {
+  dispatch(loginStart());
+  try {
+    const res = await axios.post(baseUrl + "google-login", { token });
+    const { user, message } = res.data;
+    localStorage.setItem("token", user.token);
+    setBearer(user.token);
+    dispatch(loginSuccess({ user }));
+    dispatch(
+      openAlert({
+        message,
+        severity: "success",
+        duration: 500,
+        nextRoute: "/boards",
+      })
+    );
+  } catch (error) {
+    dispatch(loginFailure());
+    dispatch(
+      openAlert({
+        message: error?.response?.data?.errMessage
+          ? error.response.data.errMessage
+          : error.message,
+        severity: "error",
+      })
+    );
+  }
+};
+
 export const loadUser = async (dispatch) => {
   dispatch(loadStart());
   if (!localStorage.token) return dispatch(loadFailure());

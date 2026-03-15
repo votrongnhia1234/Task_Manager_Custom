@@ -55,9 +55,20 @@ const getUserWithMail = async (email, callback) => {
   }
 };
 
+const createGoogleUser = async (user, callback) => {
+  const newUser = userModel({ ...user, color: createRandomHexColor() });
+  try {
+    const savedUser = await newUser.save();
+    return callback(false, { ...savedUser.toJSON() });
+  } catch (err) {
+    return callback({ errMessage: "Email already in use!", details: err });
+  }
+};
+
 module.exports = {
   register,
   login,
   getUser,
   getUserWithMail,
+  createGoogleUser,
 };

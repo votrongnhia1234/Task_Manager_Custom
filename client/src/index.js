@@ -9,10 +9,14 @@ import '@atlaskit/css-reset';
 import './Components/Modals/EditCardModal/Popovers/Date/DateRange.css';
 import './index.css';
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={Store}>
-    <App />
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || "replace_with_your_google_client_id"}>
+        <App />
+      </GoogleOAuthProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

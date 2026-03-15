@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Background from "../../Background";
-import { register } from "../../../Services/userService";
+import { register, googleLogin } from "../../../Services/userService";
+import { GoogleLogin } from "@react-oauth/google";
 import Logo from "../../../Images/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -40,6 +41,15 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await register(userInformations, dispatch);
+  };
+
+  const handleGoogleSuccess = (credentialResponse) => {
+    googleLogin(credentialResponse.credential, dispatch);
+  };
+
+  const handleGoogleError = () => {
+    alert('Google signup failed. Please try again.');
+    console.error('Google Signup Error');
   };
 
   return (
@@ -123,6 +133,12 @@ const Register = () => {
               <Button type="submit" disabled={pending}>
                 Complete
               </Button>
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={handleGoogleError}
+                />
+              </div>
               <Hr />
               <Link fontSize="0.85rem" onClick={() => history.push("/login")}>
                 Already have an account? Log In

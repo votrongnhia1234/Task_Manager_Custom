@@ -1,8 +1,17 @@
 import * as React from 'react';
 import Backdrop from '@mui/material/Backdrop';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import Logo from '../Images/logo.svg';
+
+const pulse = keyframes`
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+`;
+
 const Icon = styled.img`
 	width: 10vw;
+	animation: ${pulse} 1.5s infinite ease-in-out;
 `;
 
 export default function LoadingScreen() {
@@ -17,7 +26,7 @@ export default function LoadingScreen() {
 				open={open}
 				//onClick={handleClose}
 			>
-				<Icon src='https://a.trellocdn.com/prgb/dist/images/header-logo-spirit-loading.87e1af770a49ce8e84e3.gif' />
+				<Icon src={Logo} alt="Loading..." />
 			</Backdrop>
 		</div>
 	);

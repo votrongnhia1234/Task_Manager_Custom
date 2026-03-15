@@ -24,6 +24,7 @@ app.use(
 		path: [
 			{ url: '/user/login', method: ['POST'] },
 			{ url: '/user/register', method: ['POST'] },
+			{ url: '/user/google-login', method: ['POST'] },
 		],
 	})
 );
