@@ -25,6 +25,7 @@ app.use(
 			{ url: '/user/login', method: ['POST'] },
 			{ url: '/user/register', method: ['POST'] },
 			{ url: '/user/google-login', method: ['POST'] },
+			{ url: '/', method: ['GET'] },
 		],
 	})
 );
@@ -51,6 +52,10 @@ app.use('/user', userRoute);
 app.use('/board', boardRoute);
 app.use('/list', listRoute);
 app.use('/card', cardRoute);
+
+app.get('/', (req, res) => {
+	res.send('Trello Clone Backend is running!');
+});
 
 app.listen(process.env.PORT, () => {
 	console.log(`Server is online! Port: ${process.env.PORT}`);

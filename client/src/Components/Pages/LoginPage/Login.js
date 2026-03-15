@@ -30,7 +30,7 @@ const Login = () => {
   });
 
   useEffect(() => {
-    document.title = "Log in to Trello Clone";
+    document.title = "Log in to Task Manager";
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,7 +55,7 @@ const Login = () => {
         <FormSection>
           <FormCard>
             <Form onSubmit={(e) => handleSubmit(e)}>
-              <Title>Log in to Trello</Title>
+              <Title>Log in to Task Manager</Title>
               <Input
                 type="email"
                 placeholder="Enter email"
