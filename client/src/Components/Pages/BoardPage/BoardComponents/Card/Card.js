@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import EditCard from '../../../../Modals/EditCardModal/EditCard';
 import FollowIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import WatchIcon from '@mui/icons-material/AccessTimeOutlined';
@@ -30,6 +30,7 @@ import { Avatar } from '@mui/material';
 const Card = (props) => {
 	const [openModal, setOpenModal] = useState(false);
 	const card = props.info;
+	const cardIds = useMemo(() => ({ cardId: props.info._id, listId: props.listId, boardId: props.boardId }), [props.info._id, props.listId, props.boardId]);
 	const comment = card.activities.filter((act) => act.isComment).length;
 	let checks = { c: 0, n: 0 };
 	card.checklists.map((checklist) => {
@@ -195,13 +196,13 @@ const Card = (props) => {
 					);
 				}}
 			</Draggable>
-			{openModal && (
-				<EditCard
-					open={openModal}
-					callback={handleOpenClose}
-					ids={{ cardId: props.info._id, listId: props.listId, boardId: props.boardId }}
-				/>
-			)}
+		{openModal && (
+			<EditCard
+				open={openModal}
+				callback={handleOpenClose}
+				ids={cardIds}
+			/>
+		)}
 		</>
 	);
 };

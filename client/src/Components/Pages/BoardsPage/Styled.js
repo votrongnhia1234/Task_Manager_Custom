@@ -8,6 +8,9 @@ export const Container = styled.div`
   height: 100vh;
   overflow: hidden;
   z-index: 0;
+  background-image: url('https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/a651551a5214cb84963366cf9eaacb40/photo-1636207543865-acf3ad382295.jpg');
+  background-position: 50%;
+  background-size: cover;
 `;
 
 export const VideoBackground = styled.video`

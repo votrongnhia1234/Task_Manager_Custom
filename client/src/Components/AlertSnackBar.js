@@ -22,9 +22,11 @@ const AlertSnackBar = () => {
     }
     dispatch(closeAlert());
     try {
-      history.push(nextRoute);
+      if (nextRoute) history.push(nextRoute);
     } catch (error) {}
   };
+
+  if (!open) return null;
 
   return (
     <>

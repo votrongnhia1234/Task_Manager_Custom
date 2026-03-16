@@ -54,6 +54,7 @@ import {
 } from '../Redux/Slices/listSlice';
 
 const baseUrl = process.env.REACT_APP_API_URL + '/card';
+
 let submitCall = Promise.resolve();
 
 export const getCard = async (cardId, listId, boardId, dispatch) => {
@@ -446,17 +447,17 @@ export const checklistItemCompletedSet = async (
 		submitCall = submitCall.then(() =>
 			axios.put(
 				baseUrl +
-					'/' +
-					boardId +
-					'/' +
-					listId +
-					'/' +
-					cardId +
-					'/' +
-					checklistId +
-					'/' +
-					checklistItemId +
-					'/set-checklist-item-completed',
+				'/' +
+				boardId +
+				'/' +
+				listId +
+				'/' +
+				cardId +
+				'/' +
+				checklistId +
+				'/' +
+				checklistItemId +
+				'/set-checklist-item-completed',
 				{
 					completed,
 				}
@@ -489,17 +490,17 @@ export const checklistItemTextSet = async (cardId, listId, boardId, checklistId,
 		submitCall = submitCall.then(() =>
 			axios.put(
 				baseUrl +
-					'/' +
-					boardId +
-					'/' +
-					listId +
-					'/' +
-					cardId +
-					'/' +
-					checklistId +
-					'/' +
-					checklistItemId +
-					'/set-checklist-item-text',
+				'/' +
+				boardId +
+				'/' +
+				listId +
+				'/' +
+				cardId +
+				'/' +
+				checklistId +
+				'/' +
+				checklistItemId +
+				'/set-checklist-item-text',
 				{
 					text,
 				}
@@ -526,17 +527,17 @@ export const checklistItemDelete = async (cardId, listId, boardId, checklistId, 
 		submitCall = submitCall.then(() =>
 			axios.delete(
 				baseUrl +
-					'/' +
-					boardId +
-					'/' +
-					listId +
-					'/' +
-					cardId +
-					'/' +
-					checklistId +
-					'/' +
-					checklistItemId +
-					'/delete-checklist-item'
+				'/' +
+				boardId +
+				'/' +
+				listId +
+				'/' +
+				cardId +
+				'/' +
+				checklistId +
+				'/' +
+				checklistItemId +
+				'/delete-checklist-item'
 			)
 		);
 		await submitCall;

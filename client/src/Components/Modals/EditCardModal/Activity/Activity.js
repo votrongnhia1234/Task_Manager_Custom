@@ -44,7 +44,7 @@ const Activity = () => {
 		return () => {
 			document.removeEventListener('click', handleClickOutside, true);
 		};
-	});
+	}, []);
 	return (
 		<>
 			<Container>

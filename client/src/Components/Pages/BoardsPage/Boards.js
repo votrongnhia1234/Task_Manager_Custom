@@ -20,6 +20,8 @@ const Boards = () => {
   const { pending, boardsData } = useSelector((state) => state.boards);
   const [openModal, setOpenModal] = useState(false);
   const [searchString, setSearchString] = useState("");
+  const [videoError, setVideoError] = useState(false);
+
   const handleModalClose = () => {
     setOpenModal(false);
   };
@@ -33,21 +35,27 @@ const Boards = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    document.title = "Boards | Trello Clone";
+    document.title = "Boards | Task Manager";
   }, []);
 
   return (
     <>
       {pending && <LoadingScreen />}
       <Container>
-        <VideoBackground
-          autoPlay
-          muted
-          loop
-          playsInline
-          src="/background_video.mp4"
-          // poster="https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/a651551a5214cb84963366cf9eaacb40/photo-1636207543865-acf3ad382295.jpg"
-        />
+        {!videoError && (
+          <VideoBackground
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/a651551a5214cb84963366cf9eaacb40/photo-1636207543865-acf3ad382295.jpg"
+            onError={() => setVideoError(true)}
+          >
+            <source src="/background_video.mp4" type="video/mp4" />
+            <source src="/background_video.webm" type="video/webm" />
+          </VideoBackground>
+        )}
         <Navbar searchString={searchString} setSearchString={setSearchString} />
         <Wrapper>
           <Title>Your Boards</Title>

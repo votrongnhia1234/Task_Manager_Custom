@@ -44,6 +44,8 @@ export const userSlice = createSlice({
     },
     loadFailure: (state) => {
       state.pending = false;
+      state.isAuthenticated = false;
+      localStorage.removeItem("token");
     },
     logout: (state) => {
       state.isAuthenticated = false;

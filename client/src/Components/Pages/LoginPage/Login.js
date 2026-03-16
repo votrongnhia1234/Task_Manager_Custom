@@ -9,7 +9,7 @@ import Logo from "../../../Images/logo.svg";
 import {
   BgContainer,
   Container,
-  TrelloIconContainer,
+  LogoIconContainer,
   FormSection,
   FormCard,
   Form,
@@ -49,9 +49,9 @@ const Login = () => {
         <Background />
       </BgContainer>
       <Container>
-        <TrelloIconContainer onClick={() => history.push("/")}>
+        <LogoIconContainer onClick={() => history.push("/")}>
           <Icon src={Logo} />
-        </TrelloIconContainer>
+        </LogoIconContainer>
         <FormSection>
           <FormCard>
             <Form onSubmit={(e) => handleSubmit(e)}>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { openAlert } from '../Redux/Slices/alertSlice';
-import { setLoading, successCreatingCard,deleteCard } from '../Redux/Slices/listSlice';
+import { setLoading, successCreatingCard, deleteCard } from '../Redux/Slices/listSlice';
 
 const baseUrl = process.env.REACT_APP_API_URL + '/card';
 
@@ -21,10 +21,10 @@ export const createCard = async (title, listId, boardId, dispatch) => {
 	}
 };
 
-export const cardDelete = async(listId,boardId,cardId,dispatch)=>{
+export const cardDelete = async (listId, boardId, cardId, dispatch) => {
 	try {
-		await dispatch(deleteCard({listId,cardId}));
-		await axios.delete(baseUrl + "/"+boardId+"/"+listId + "/" + cardId+ "/delete-card");
+		await dispatch(deleteCard({ listId, cardId }));
+		await axios.delete(baseUrl + "/" + boardId + "/" + listId + "/" + cardId + "/delete-card");
 	} catch (error) {
 		dispatch(
 			openAlert({

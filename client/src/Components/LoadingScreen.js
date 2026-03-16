@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Backdrop from '@mui/material/Backdrop';
 import styled, { keyframes } from 'styled-components';
 import Logo from '../Images/logo.svg';
 
@@ -9,25 +8,28 @@ const pulse = keyframes`
   100% { transform: scale(0.9); opacity: 0.7; }
 `;
 
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1300;
+`;
+
 const Icon = styled.img`
-	width: 10vw;
-	animation: ${pulse} 1.5s infinite ease-in-out;
+  width: 10vw;
+  animation: ${pulse} 1.5s infinite ease-in-out;
 `;
 
 export default function LoadingScreen() {
-	const [open] = React.useState(true);
-	/*  const handleClose = () => {
-    setOpen(false);
-  }; */
-	return (
-		<div>
-			<Backdrop
-				sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-				open={open}
-				//onClick={handleClose}
-			>
-				<Icon src={Logo} alt="Loading..." />
-			</Backdrop>
-		</div>
-	);
+  return (
+    <Overlay>
+      <Icon src={Logo} alt="Loading..." />
+    </Overlay>
+  );
 }

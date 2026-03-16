@@ -33,6 +33,8 @@ import {
 	CloseIconWrapper,
 } from './styled';
 
+const MODAL_STYLE = { overflow: 'auto' };
+
 export default function EditCard(props) {
 	const { cardId, listId, boardId } = props.ids;
 	const dispatch = useDispatch();
@@ -41,11 +43,11 @@ export default function EditCard(props) {
 		if (props.open) {
 			getCard(cardId, listId, boardId, dispatch);
 		}
-	}, [boardId, cardId, dispatch, listId, props.open]);
+	}, [boardId, cardId, listId, props.open, dispatch]);
 
 	return (
 		<div style={{ position: 'relative' }}>
-			<Modal open={props.open} onClose={props.callback} style={{ overflow: 'auto' }}>
+			<Modal open={props.open} onClose={props.callback} style={MODAL_STYLE} disableEnforceFocus>
 				<Container>
 					<CoverContainer color={!thisCard.pending ? thisCard.cover.color : null}>
 						<CoverButtonWrapper>

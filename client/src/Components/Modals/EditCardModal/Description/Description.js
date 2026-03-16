@@ -41,7 +41,7 @@ const Description = () => {
 		return () => {
 			document.removeEventListener('click', handleClickOutside, true);
 		};
-	});
+	}, []);
 
 	return (
 		<Container ref={ref2}>

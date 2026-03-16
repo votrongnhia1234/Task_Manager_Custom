@@ -24,7 +24,7 @@ const Board = (props) => {
 	}, [props.match.params.id, dispatch, boardId]);
 
 	useEffect(() => {
-		document.title = title + ' | Trello Clone';
+		document.title = title + ' | Task Manager';
 	}, [title]);
 
 	const onDragEnd = async (result) => {

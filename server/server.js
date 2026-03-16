@@ -54,7 +54,7 @@ app.use('/list', listRoute);
 app.use('/card', cardRoute);
 
 app.get('/', (req, res) => {
-	res.send('Trello Clone Backend is running!');
+	res.send('Task Manager Backend is running!');
 });
 
 app.listen(process.env.PORT, () => {

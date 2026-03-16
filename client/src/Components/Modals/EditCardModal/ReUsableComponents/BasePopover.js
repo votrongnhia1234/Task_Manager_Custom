@@ -71,6 +71,7 @@ export default function BasePopover(props) {
 			open={Boolean(anchorElement)}
 			anchorEl={anchorElement}
 			onClose={closeCallback}
+			disableEnforceFocus
 			anchorOrigin={{
 				vertical: 'bottom',
 				horizontal: 'left',
