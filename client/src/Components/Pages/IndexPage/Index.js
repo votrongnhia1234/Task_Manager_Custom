@@ -25,11 +25,11 @@ const Index = () => {
         <Content>
           <LeftSide>
             <LeftWrapper>
-              <Title>Trello helps teams move work forward.</Title>
+              <Title>Task Manager helps teams move work forward.</Title>
               <Text>
                 Collaborate, manage projects, and reach new productivity peaks.
                 From high rises to the home office, the way your team works is
-                unique—accomplish it all with Trello.
+                unique—accomplish it all with Task Manager.
               </Text>
               <Button onClick={() => history.push("/register")}>
                 Sign up - it's free
