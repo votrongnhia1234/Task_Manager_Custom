@@ -15,12 +15,12 @@ import {
   updateDescription,
 } from "../Redux/Slices/boardSlice";
 
-// const listRoute = process.env.REACT_APP_API_URL + '/list';
-// const boardRoute = process.env.REACT_APP_API_URL + '/board';
+const listRoute = process.env.REACT_APP_API_URL + "/list";
+const boardRoute = process.env.REACT_APP_API_URL + "/board";
 
-const url = "http://localhost:3001";
-const listRoute = url + "/list";
-const boardRoute = url + "/board";
+// const url = "http://localhost:3001";
+// const listRoute = url + "/list";
+// const boardRoute = url + "/board";
 
 export const getLists = async (boardId, dispatch) => {
   dispatch(setLoading(true));
