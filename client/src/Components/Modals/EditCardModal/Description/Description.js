@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Container, RightContainer, Title, DescriptionInput, DescriptionText } from './styled';
 import DescriptionIcon from '@mui/icons-material/TextSnippetOutlined';
 import BottomButtonGroup from '../../../Pages/BoardPage/BoardComponents/BottomButtonGroup/BottomButtonGroup.js';
@@ -27,21 +27,21 @@ const Description = () => {
 		}
 	}, [inputFocus]);
 
-	const handleClickOutside = (event) => {
+	const handleClickOutside = useCallback((event) => {
 		if (ref2.current && !ref2.current.contains(event.target)) {
 			setInputFocus(false);
 			setDescription(thisCard.description);
 		} else {
 			setInputFocus(true);
 		}
-	};
+	}, [thisCard.description]);
 
 	useEffect(() => {
 		document.addEventListener('click', handleClickOutside, true);
 		return () => {
 			document.removeEventListener('click', handleClickOutside, true);
 		};
-	}, []);
+	}, [handleClickOutside]);
 
 	return (
 		<Container ref={ref2}>
