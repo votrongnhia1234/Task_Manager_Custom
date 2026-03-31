@@ -1,9 +1,24 @@
 const cardService = require('../Services/cardService');
+const { getIO } = require('../socket');
+
+// Helper to broadcast to a board room, optionally excluding the sender socket
+const broadcastToBoard = (boardId, event, data, excludeSocketId) => {
+	try {
+		const io = getIO();
+		const target = excludeSocketId
+			? io.to(boardId).except(excludeSocketId)
+			: io.to(boardId);
+		target.emit(event, data);
+	} catch (e) {
+		// Socket.IO not available, ignore
+	}
+};
 
 const create = async (req, res) => {
 	// Deconstruct the params
 	const { title, listId, boardId } = req.body;
 	const user = req.user;
+	const senderSocketId = req.headers['x-socket-id'];
 
 	// Validate the inputs
 	if (!(title && listId && boardId))
@@ -14,6 +29,8 @@ const create = async (req, res) => {
 	//Call the card service
 	await cardService.create(title, listId, boardId, user, (err, result) => {
 		if (err) return res.status(500).send(err);
+		// Broadcast card creation — exclude sender
+		broadcastToBoard(boardId, 'card-created', { listId, updatedList: result }, senderSocketId);
 		return res.status(201).send(result);
 	});
 };
@@ -22,10 +39,13 @@ const deleteById = async (req, res) => {
 	// deconstruct the params
 	const user = req.user;
 	const { boardId, listId, cardId } = req.params;
+	const senderSocketId = req.headers['x-socket-id'];
 
 	// Call the card service
 	await cardService.deleteById(cardId, listId, boardId, user, (err, result) => {
 		if (err) return res.status(500).send(err);
+		// Broadcast card deletion — exclude sender
+		broadcastToBoard(boardId, 'card-deleted', { listId, cardId }, senderSocketId);
 		return res.status(200).send(result);
 	});
 };
@@ -46,10 +66,19 @@ const update = async (req, res) => {
 	// Get params
 	const user = req.user;
 	const { boardId, listId, cardId } = req.params;
+	const body = req.body;
+	const senderSocketId = req.headers['x-socket-id'];
 
 	// Call the card service
-	await cardService.update(cardId, listId, boardId, user, req.body, (err, result) => {
+	await cardService.update(cardId, listId, boardId, user, body, (err, result) => {
 		if (err) return res.status(500).send(err);
+		// Broadcast title or description update — exclude sender
+		if (body.title !== undefined) {
+			broadcastToBoard(boardId, 'card-title-updated', { listId, cardId, title: body.title }, senderSocketId);
+		}
+		if (body.description !== undefined) {
+			broadcastToBoard(boardId, 'card-description-updated', { listId, cardId, description: body.description }, senderSocketId);
+		}
 		return res.status(200).send(result);
 	});
 };
@@ -314,6 +343,7 @@ const addAttachment = async (req, res) => {
 	const user = req.user;
 	const { boardId, listId, cardId } = req.params;
 	const {link,name} = req.body;
+	
 
 	// Call the card service
 	await cardService.addAttachment(
@@ -390,6 +420,8 @@ const updateCover = async (req, res) => {
 		isSizeOne,
 		(err, result) => {
 			if (err) return res.status(500).send(err);
+			// Broadcast cover update
+			broadcastToBoard(boardId, 'card-cover-updated', { listId, cardId, color, isSizeOne });
 			return res.status(200).send(result);
 		}
 	);

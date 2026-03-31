@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { xs } from '../../../../../BreakPoints';
 
 export const TopBar = styled.div`
@@ -101,5 +101,44 @@ export const BoardNameInput = styled.input`
 
 	${xs({
 		maxWidth: '8rem',
+	})}
+`;
+
+const pulse = keyframes`
+	0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+	70% { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+	100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+`;
+
+export const LiveIndicator = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.25rem 0.6rem;
+	border-radius: 20px;
+	background-color: rgba(255, 255, 255, 0.15);
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	cursor: default;
+	transition: all 250ms ease;
+
+	.dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background-color: ${(props) => (props.connected ? '#34d399' : '#9ca3af')};
+		animation: ${(props) => (props.connected ? css`${pulse} 2s infinite` : 'none')};
+		transition: background-color 300ms ease;
+	}
+
+	.label {
+		font-size: 0.72rem;
+		font-weight: 600;
+		color: ${(props) => (props.connected ? '#d1fae5' : '#d1d5db')};
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	${xs({
+		'.label': { display: 'none' },
 	})}
 `;

@@ -35,7 +35,7 @@ const Boards = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    document.title = "Boards | Task Manager";
+    document.title = "Boards | Trello Clone";
   }, []);
 
   return (

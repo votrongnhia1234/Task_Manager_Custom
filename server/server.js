@@ -1,4 +1,5 @@
 const dotenv = require('dotenv');
+const http = require('http');
 const express = require('express');
 const unless = require('express-unless');
 const mongoose = require('mongoose');
@@ -8,9 +9,14 @@ const boardRoute = require('./Routes/boardRoute');
 const listRoute = require('./Routes/listRoute');
 const cardRoute = require('./Routes/cardRoute');
 const auth = require('./Middlewares/auth');
+const socketManager = require('./socket');
 
 dotenv.config();
 const app = express();
+const httpServer = http.createServer(app);
+
+// Initialize Socket.IO
+socketManager.init(httpServer);
 
 app.use(cors());
 app.use(express.json());
@@ -57,6 +63,7 @@ app.get('/', (req, res) => {
 	res.send('Task Manager Backend is running!');
 });
 
-app.listen(process.env.PORT, () => {
+httpServer.listen(process.env.PORT, () => {
 	console.log(`Server is online! Port: ${process.env.PORT}`);
+	console.log(`Socket.IO is ready for real-time connections`);
 });
